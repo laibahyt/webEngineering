@@ -1,33 +1,34 @@
-name: Repo Activity Update
+name: WebEngineering Auto Time Update
 
 on:
   schedule:
-    - cron: "30 1 * * *"
+    - cron: "15 2 * * *"
   workflow_dispatch:
 
 jobs:
-  update-log:
+  update-time:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Modify update file
+      - name: Update date and time
         run: |
-          CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+          CURRENT_DATE=$(date +"%A, %d %B %Y")
+          CURRENT_TIME=$(date +"%H:%M:%S")
           TOTAL_COMMITS=$(git rev-list --all --count)
 
-          echo "WebEngineering Repository Activity" > daily-update.txt
-          echo "---------------------------------" >> daily-update.txt
-          echo "Updated on: $CURRENT_TIME" >> daily-update.txt
-          echo "Total Commits So Far: $TOTAL_COMMITS" >> daily-update.txt
-          echo "Status: Repository checked automatically." >> daily-update.txt
+          echo "WebEngineering Automatic Update Log" > dailyTimeDateUpdation
+          echo "------------------------------------" >> dailyTimeDateUpdation
+          echo "Date: $CURRENT_DATE" >> dailyTimeDateUpdation
+          echo "Time: $CURRENT_TIME" >> dailyTimeDateUpdation
+          echo "Total Commits: $TOTAL_COMMITS" >> dailyTimeDateUpdation
 
-      - name: Push changes
+      - name: Commit and Push Changes
         run: |
-          git config --global user.name "repo-bot"
-          git config --global user.email "repo-bot@users.noreply.github.com"
-          git add daily-update.txt
-          git commit -m "Auto activity update"
+          git config --global user.name "auto-update-bot"
+          git config --global user.email "bot@github.com"
+          git add dailyTimeDateUpdation
+          git commit -m "Automatic date & time update"
           git push
