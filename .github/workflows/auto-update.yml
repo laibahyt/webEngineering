@@ -1,0 +1,33 @@
+name: Repo Activity Update
+
+on:
+  schedule:
+    - cron: "30 1 * * *"
+  workflow_dispatch:
+
+jobs:
+  update-log:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Modify update file
+        run: |
+          CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+          TOTAL_COMMITS=$(git rev-list --all --count)
+
+          echo "WebEngineering Repository Activity" > daily-update.txt
+          echo "---------------------------------" >> daily-update.txt
+          echo "Updated on: $CURRENT_TIME" >> daily-update.txt
+          echo "Total Commits So Far: $TOTAL_COMMITS" >> daily-update.txt
+          echo "Status: Repository checked automatically." >> daily-update.txt
+
+      - name: Push changes
+        run: |
+          git config --global user.name "repo-bot"
+          git config --global user.email "repo-bot@users.noreply.github.com"
+          git add daily-update.txt
+          git commit -m "Auto activity update"
+          git push
