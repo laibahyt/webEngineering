@@ -1,0 +1,35 @@
+body {
+  font-family: Arial;
+  background: linear-gradient(to right, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+input {
+  width: 70%;
+  padding: 8px;
+}
+
+button {
+  padding: 8px;
+  margin-top: 10px;
+  background: #ff758c;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+  margin-top: 10px;
+}
